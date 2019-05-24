@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>Service Link Coide Challenge</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"/>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <script src="https://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <style>
+        .btn-circle {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            padding: 6px 0;
+            font-size: 12px;
+            line-height: 1.42;
+            border-radius: 15px;
+        }
+
+        tr {
+            border-top: hidden;
+        }
+        @media only screen and (min-width: 768px) {
+            .mobile-a {
+                display: none;
+            }
+        }
+
+        .mobile-a {
+            margin-right: 25%;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+    <button
+            class="navbar-toggler button"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarToggler"
+            aria-controls="navbarToggler"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <span class="mobile-a"><a class="nav-link" href="#"><img src="group-1.png" class="rounded" alt="..."></a></span>
+    <div class="collapse navbar-collapse" id="navbarToggler">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Nav 1 <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Nav 2</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Nav 3</a>
+            </li>
+        </ul>
+        <span class="mr-auto">
+                <img src="group-1.png" class="rounded" alt="...">
+        </span>
+        <ul class="navbar-nav my-2 my-lg-0">
+            <li class="nav-item nav-link mr-2">Welcome Christy &#8964;</li>
+        </ul>
+    </div>
+</nav>
+<div class="container card">
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th rowspan="1" colspan="3" class="text-info">Section</th>
+            <th rowspan="1" colspan="1" class="text-right">
+                <a class="btn btn-link text-info" onclick="addRow()">&#x2b; Add Category</a>
+            </th>
+        </tr>
+        <tr class="text-secondary">
+            <th></th>
+            <th>CATEGORY</th>
+            <th>SEQ.</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody id="table_rows"></tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    window.onload = data;
+    var rows = [
+        {
+            id: 1,
+            cat: 'Category',
+        },
+        {
+            id: 2,
+            cat: 'Category',
+        },
+        {
+            id: 3,
+            cat: 'Category',
+        },
+    ];
+
+    function data() {
+        var html = '<tbody>';
+        for (var i = 0; i < rows.length; i++) {
+            const tempid = i + 1;
+            html += '<tr>';
+            html += "<td class='text-secondary'>" + '&equiv;' + '</td>';
+            html += '<td>' + rows[i].cat + ' ' + tempid + '</td>';
+            html +=
+                '<td>' +
+                '<span class="badge badge-success">' +
+                tempid +
+                '</span>' +
+                '</td>';
+            html +=
+                "<td class='text-right'>" +
+                "<button id='" +
+                i +
+                "' class='btn btn-danger button btn-circle text-danger bg-transparent'>X</button>" +
+                '</td>';
+            html += '</tr>'
+        }
+        html += '</tbody>';
+        document.getElementById('table_rows').innerHTML = html
+    }
+
+    function addRow() {
+        const table = document.getElementById('table_rows');
+        const table_len = table.rows.length + 1;
+        var html = '<tr>';
+        html += "<td class='text-secondary'>" + '&equiv;' + '</td>';
+        html += '<td>' + '<input type="text" id="new_cat"/>' + '</td>';
+        html +=
+            '<td>' +
+            '<span class="badge badge-success">' +
+            table_len +
+            '</span>' +
+            '</td>';
+        html +=
+            "<td class='text-right'>" +
+            "<input type='button' class='btn button btn-link text-primary' onclick='saveRow()' value='Save'>" +
+            '</td>';
+        html += '</tr>';
+        var newRow = document.getElementById('table_rows').insertRow();
+        newRow.innerHTML = html
+    }
+
+    $('table').on('click', 'tr td .button', function (e) {
+        e.preventDefault();
+        $(this)
+            .closest('tr')
+            .remove()
+    });
+
+    function saveRow() {
+        const new_cat = document.getElementById('new_cat').value;
+        if (new_cat === '') {
+            alert('Please enter some value')
+        } else {
+            const table = document.getElementById('table_rows');
+            const id = table.rows.length;
+            const table_len = table.rows.length - 1;
+            table.insertRow(table_len).outerHTML =
+                "<tr id='row" +
+                table_len +
+                "'>" +
+                "<td id='new_row_id" +
+                table_len +
+                "' class='text-secondary'>" +
+                '&equiv;' +
+                '</td>' +
+                "<td id='cat_row" +
+                table_len +
+                "' class='text-secondary'>" +
+                new_cat +
+                '</td>' +
+                "<td id='seq_row" +
+                table_len +
+                "'>" +
+                '<span class="badge badge-success">' +
+                id +
+                '</span>' +
+                '</td>' +
+                "<td class='text-right'><input type='button' value='X' class='btn button btn-danger btn-circle text-danger bg-transparent'></td></tr>";
+            $('tbody tr:last').remove()
+        }
+    }
+</script>
+<script type="text/javascript">
+    $('tbody').sortable();
+</script>
+</body>
+</html>
